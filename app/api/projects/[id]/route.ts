@@ -1,0 +1,1 @@
+import {NextResponse} from 'next/server';import {deleteProject} from '@/lib/db';export async function DELETE(_:Request,{params}:{params:Promise<{id:string}>}){try{deleteProject((await params).id);return NextResponse.json({ok:true})}catch{return NextResponse.json({error:'Could not delete project.'},{status:500})}}

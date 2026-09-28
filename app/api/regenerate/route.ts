@@ -1,0 +1,1 @@
+import {NextResponse} from 'next/server';import {regenerateSection} from '@/lib/ai';export async function POST(req:Request){try{const b=await req.json();const items=await regenerateSection(b.project,b.persona,b.section);return NextResponse.json({items})}catch(e:any){return NextResponse.json({error:e?.message||'Regeneration failed.'},{status:400})}}

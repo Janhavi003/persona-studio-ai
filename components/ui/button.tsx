@@ -1,0 +1,3 @@
+'use client';
+import {forwardRef,ButtonHTMLAttributes} from 'react';
+export const Button=forwardRef<HTMLButtonElement,ButtonHTMLAttributes<HTMLButtonElement>&{variant?:'primary'|'secondary'|'ghost'|'danger'}>(function Button({className='',variant='primary',...p},ref){const v={primary:'bg-[var(--accent)] text-white hover:brightness-95',secondary:'surface hover:bg-[var(--surface2)]',ghost:'hover:bg-[var(--surface2)]',danger:'bg-red-600 text-white hover:bg-red-700'}[variant];return <button ref={ref} className={`focus-ring inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-semibold transition ${v} ${className}`} {...p}/>});

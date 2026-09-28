@@ -1,0 +1,2 @@
+'use client';
+export function Dialog({open,onClose,children}:{open:boolean,onClose:()=>void,children:React.ReactNode}){if(!open)return null;return <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onMouseDown={e=>e.target===e.currentTarget&&onClose()}><div className="surface max-h-[90vh] w-full max-w-2xl overflow-auto rounded-2xl shadow-2xl">{children}</div></div>}
