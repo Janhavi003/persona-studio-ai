@@ -37,7 +37,7 @@ The landing page and workspace share the same visual tokens so the product reads
 
 Next.js App Router provides the UI and server API routes. AI calls live in `lib/ai`, Zod contracts live in `lib/validation`, persistence lives in `lib/db`, and shared domain types live in `lib/types`. The Gemini API key is server-only.
 
-The AI integration uses Google's official `@google/genai` SDK with JSON-schema structured responses. The generated JSON is parsed again with Zod before application use, so malformed or unexpected model output is rejected rather than rendered. Gemini's JavaScript SDK supports structured output with JSON Schema and Zod-based validation. See the official Gemini documentation for the current API contract.
+The AI integration uses Google's official `@google/genai` SDK with a compact JSON-schema structured response for persona generation, followed by Zod validation and transformation into the full application model. The generated JSON is parsed again with Zod before application use, so malformed or unexpected model output is rejected rather than rendered. Gemini's JavaScript SDK supports structured output with JSON Schema and Zod-based validation. See the official Gemini documentation for the current API contract.
 
 ## Tech stack
 
