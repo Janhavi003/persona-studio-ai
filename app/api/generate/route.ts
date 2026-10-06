@@ -15,20 +15,25 @@ export async function POST(req: Request) {
   } catch (error: unknown) {
     console.error('[POST /api/generate]', error);
 
-    if (error instanceof Error && error.message.includes('GEMINI_API_KEY')) {
+    if (error instanceof Error && error.message.includes('GROQ_API_KEY')) {
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
 
-    if (error instanceof Error && error.message.startsWith('Gemini request failed:')) {
+    if (error instanceof Error && error.message.startsWith('Groq request failed:')) {
+      const transient = /(?:\b408\b|\b409\b|\b429\b|\b500\b|\b502\b|\b503\b|\b504\b|rate.?limit|overload|temporar|timeout|timed out|service unavailable)/i.test(error.message);
       return NextResponse.json(
-        { error: 'Gemini could not complete the generation request. Check your API key, quota, model configuration, and try again.' },
-        { status: 502 },
+        {
+          error: transient
+            ? 'Groq is temporarily busy or rate-limited. Persona Studio retried the request and tried the fallback model. Please try again in a moment.'
+            : 'Groq could not complete the generation request. Check your API key, quota, and model configuration.',
+        },
+        { status: transient ? 503 : 502 },
       );
     }
 
-    if (error instanceof Error && error.message.startsWith('Gemini returned data')) {
+    if (error instanceof Error && error.message.startsWith('Groq returned data')) {
       return NextResponse.json(
-        { error: 'Gemini returned an unexpected persona structure. Please try generating again.' },
+        { error: 'Groq returned an unexpected persona structure. Please try generating again.' },
         { status: 502 },
       );
     }

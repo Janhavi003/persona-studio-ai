@@ -100,7 +100,7 @@ Choose **3 personas** and click **Generate Personas**.
 1. Create the project.
 2. Move through all five wizard steps.
 3. Confirm Step 3 scrolls while the footer navigation remains visible.
-4. Generate personas with a valid `GEMINI_API_KEY`.
+4. Generate personas with a valid `GROQ_API_KEY`.
 5. Open a generated persona.
 6. Test the persona tabs.
 7. Edit the persona and save it.

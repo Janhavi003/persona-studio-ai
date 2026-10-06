@@ -7,7 +7,7 @@ Persona Studio is a research-honest AI product-research workspace that turns pro
 ## Features
 
 - Multi-step project creation with product, audience, research, and learning goals
-- Gemini structured JSON generation validated with Zod
+- Groq structured JSON generation validated with Zod
 - Multiple structured personas with evidence labels: known, inferred, assumption
 - Editable persona details and section-level regeneration
 - Pain-point analysis with severity, frequency, impact, evidence, and response ideas
@@ -35,9 +35,9 @@ The landing page and workspace share the same visual tokens so the product reads
 
 ## Architecture
 
-Next.js App Router provides the UI and server API routes. AI calls live in `lib/ai`, Zod contracts live in `lib/validation`, persistence lives in `lib/db`, and shared domain types live in `lib/types`. The Gemini API key is server-only.
+Next.js App Router provides the UI and server API routes. AI calls live in `lib/ai`, Zod contracts live in `lib/validation`, persistence lives in `lib/db`, and shared domain types live in `lib/types`. The Groq API key is server-only.
 
-The AI integration uses Google's official `@google/genai` SDK with a compact JSON-schema structured response for persona generation, followed by Zod validation and transformation into the full application model. The generated JSON is parsed again with Zod before application use, so malformed or unexpected model output is rejected rather than rendered. Gemini's JavaScript SDK supports structured output with JSON Schema and Zod-based validation. See the official Gemini documentation for the current API contract.
+The AI integration uses Groq's OpenAI-compatible Chat Completions API with strict JSON-schema structured output for persona generation, followed by Zod validation and transformation into the full application model. Transient Groq failures are retried with exponential backoff and jitter, then the configured fallback model is attempted. The generated JSON is parsed again with Zod before application use, so malformed or unexpected model output is rejected rather than rendered. The primary model is `openai/gpt-oss-120b`, with `openai/gpt-oss-20b` as the fallback.
 
 ## Tech stack
 
@@ -45,7 +45,7 @@ The AI integration uses Google's official `@google/genai` SDK with a compact JSO
 - Tailwind CSS
 - Reusable shadcn-style UI primitives
 - Lucide React
-- Google Gemini API via `@google/genai`
+- Groq API via its OpenAI-compatible Chat Completions endpoint
 - Zod + `zod-to-json-schema`
 - SQLite via better-sqlite3
 - Vitest
@@ -55,7 +55,7 @@ The AI integration uses Google's official `@google/genai` SDK with a compact JSO
 ```text
 app/                 Next.js pages and API routes
 components/          UI primitives and theme provider
-lib/ai/              Gemini service functions
+lib/ai/              Groq service functions
 lib/db/              SQLite persistence
 lib/types/           Domain types
 lib/validation/      Zod schemas
@@ -72,15 +72,16 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Set `GEMINI_API_KEY` in `.env.local`. The key is only read by server-side code and is never sent to the browser. The current Google Gen AI JavaScript SDK uses `@google/genai`; Google recommends server-side API-key handling for production applications.
+Set `GROQ_API_KEY` in `.env.local`. The key is only read by server-side code and is never sent to the browser. Persona Studio calls Groq directly from server-side API routes.
 
 If no API key is configured, the built-in demo project remains available. AI generation and AI chat show a clear configuration error rather than silently pretending to work.
 
 ## Environment variables
 
 ```env
-GEMINI_API_KEY=
-GEMINI_MODEL=gemini-3.8-flash
+GROQ_API_KEY=
+GROQ_MODEL=openai/gpt-oss-120b
+GROQ_FALLBACK_MODEL=openai/gpt-oss-20b
 DATABASE_PATH=./data/persona-studio.db
 ```
 
@@ -96,7 +97,7 @@ npm run test
 
 ## AI generation approach
 
-AI functions are deliberately modular: `generatePersonas`, `regenerateSection`, and `chat` are separate server-side services. Gemini returns JSON constrained by the application's schemas, and every response is parsed against Zod before use. Malformed model output is rejected rather than rendered.
+AI functions are deliberately modular: `generatePersonas`, `regenerateSection`, and `chat` are separate server-side services. Groq returns JSON constrained by the application's schemas, and every response is parsed against Zod before use. Malformed model output is rejected rather than rendered.
 
 ## Research honesty
 
@@ -110,7 +111,7 @@ Persona chat is explicitly described as a simulated perspective. Product opportu
 
 ## Security
 
-- Gemini API key is server-only
+- Groq API key is server-only
 - User input is treated as untrusted text
 - AI output is rendered as text, not arbitrary HTML
 - API inputs are schema-validated where appropriate
@@ -150,4 +151,4 @@ MIT — see `LICENSE`.
 
 ## Resume Project
 
-This project demonstrates full-stack TypeScript architecture, Next.js App Router, server-side Gemini integration, structured model outputs, Zod validation, SQLite persistence, responsive SaaS UX, research-honesty design, error handling, and maintainable separation between UI, AI, data, and validation layers.
+This project demonstrates full-stack TypeScript architecture, Next.js App Router, server-side Groq integration, structured model outputs, Zod validation, SQLite persistence, responsive SaaS UX, research-honesty design, error handling, and maintainable separation between UI, AI, data, and validation layers.
