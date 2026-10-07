@@ -1,5 +1,4 @@
 import fs from 'node:fs';
-import path from 'node:path';
 const required=['app/page.tsx','app/app/page.tsx','app/layout.tsx','lib/ai/index.ts','lib/db/index.ts','lib/validation/schemas.ts','lib/validation/project.ts','README.md','.env.example','.gitignore','LICENSE','package.json','tests/schemas.test.ts'];
 const missing=required.filter(f=>!fs.existsSync(f));
 const all=required.filter(f=>fs.existsSync(f)).map(f=>fs.readFileSync(f,'utf8')).join('\n');

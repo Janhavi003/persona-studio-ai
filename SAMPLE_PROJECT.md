@@ -1,8 +1,8 @@
-# Persona Studio — Sample Project
+# Persona Studio - Sample Project
 
 Use this sample to test the full project wizard and persona generation flow.
 
-## Step 1 — Tell us about your product
+## Step 1 - Tell us about your product
 
 **Product name**
 
@@ -24,7 +24,7 @@ Productivity & SaaS
 
 MVP
 
-## Step 2 — Who are you building for?
+## Step 2 - Who are you building for?
 
 **Target market**
 
@@ -54,7 +54,7 @@ B2C
 
 Leave blank.
 
-## Step 3 — What do you already know?
+## Step 3 - What do you already know?
 
 ### Interviews
 
@@ -80,7 +80,7 @@ Existing tools often specialize in either task management, calendars, time track
 
 Users lose focus when priorities change, notifications interrupt deep work, and their planning tools are disconnected from their actual calendar and working habits.
 
-## Step 4 — What do you want to learn?
+## Step 4 - What do you want to learn?
 
 Select:
 
@@ -91,7 +91,7 @@ Select:
 - Feature needs
 - User journey
 
-## Step 5 — Generate personas
+## Step 5 - Generate personas
 
 Choose **3 personas** and click **Generate Personas**.
 

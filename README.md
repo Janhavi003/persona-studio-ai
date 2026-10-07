@@ -1,4 +1,4 @@
-# Persona Studio — AI User Persona Generator
+# Persona Studio - AI User Persona Generator
 
 Persona Studio is a research-honest AI product-research workspace that turns product ideas and user research notes into structured persona hypotheses, pain points, jobs-to-be-done, journeys, and product opportunities.
 
@@ -103,9 +103,9 @@ AI functions are deliberately modular: `generatePersonas`, `regenerateSection`, 
 
 The product intentionally distinguishes:
 
-- **Known** — information directly supplied by the user
-- **Inferred** — an AI interpretation based on supplied context
-- **Assumption** — a hypothesis that should be tested with real users
+- **Known:** information directly supplied by the user
+- **Inferred:** an AI interpretation based on supplied context
+- **Assumption:**  a hypothesis that should be tested with real users
 
 Persona chat is explicitly described as a simulated perspective. Product opportunities are labelled AI-generated opportunities rather than objective requirements.
 
@@ -147,7 +147,7 @@ Issues and pull requests are welcome. Keep AI-generated content explicitly label
 
 ## License
 
-MIT — see `LICENSE`.
+MIT - see `LICENSE`.
 
 ## Resume Project
 
